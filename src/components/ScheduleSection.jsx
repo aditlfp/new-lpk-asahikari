@@ -237,7 +237,7 @@ const ScheduleSection = () => {
                     onClick={() => {
                       window.location.href = import.meta.env.VITE_URL_SIGNUP;
                     }}
-                    className="group relative bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2 px-3 sm:px-8 rounded-full shadow-lg shadow-blue-500/30 transition-all duration-300 inline-flex items-center gap-2 hover:scale-105 overflow-hidden"
+                    className="group relative bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2 px-4 sm:px-8 rounded-full shadow-lg shadow-blue-500/30 transition-all duration-300 inline-flex items-center justify-center gap-2 hover:scale-105 overflow-hidden"
                   >
                     <span className="absolute inset-0 bg-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
                     <span className="relative text-sm sm:text-base">

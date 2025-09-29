@@ -6,6 +6,7 @@ import image_formal3 from "../assets/foto_diri_formal_68b1114c78dbf.jpg";
 import image_formal4 from "../assets/foto_diri_formal_68be5d7aa8d2b.jpeg";
 
 const RegistrationSection = () => {
+  // Initialize with 0 instead of -1
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const steps = [
@@ -48,21 +49,18 @@ const RegistrationSection = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => {
-        if (prev >= steps.length - 1) return 0; // reset to first
-        return prev + 1;
-      });
-    }, 5000);
+      setCurrentIndex((prev) => (prev + 1) % steps.length);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [steps.length]);
 
   const nextStep = () => {
-    setCurrentIndex((prev) => (prev >= steps.length - 1 ? 0 : prev + 1));
+    setCurrentIndex((prev) => (prev + 1) % steps.length);
   };
 
   const prevStep = () => {
-    setCurrentIndex((prev) => (prev <= 0 ? steps.length - 1 : prev - 1));
+    setCurrentIndex((prev) => (prev - 1 + steps.length) % steps.length);
   };
 
   const sectionVariants = {
@@ -124,8 +122,9 @@ const RegistrationSection = () => {
             <div
               className="flex transition-transform duration-1000 ease-out"
               style={{
-                transform: `translateX(-${(currentIndex - 1) * 33.33}%)`,
-                width: "100%",
+                // Fixed calculation for proper centering
+                transform: `translateX(-${currentIndex * 33.33}%)`,
+                width: `${steps.length * 33.33}%`,
               }}
             >
               {steps.map((step, index) => (
@@ -136,14 +135,14 @@ const RegistrationSection = () => {
                 >
                   {/* Modern number badge */}
                   <div
-                    className={`w-16 h-16 rounded-2xl flex items-center justify-center text-white font-bold text-xl mb-8 z-10 transition-all duration-700 ease-out relative ${
+                    className={`w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-xl my-8 z-10 transition-all duration-700 ease-out relative ${
                       currentIndex === index
                         ? "bg-gradient-to-br from-blue-600 to-blue-700 shadow-xl shadow-blue-500/50 scale-110"
                         : "bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg scale-100"
                     }`}
                   >
                     {currentIndex === index && (
-                      <div className="absolute inset-0 rounded-2xl bg-blue-400 animate-ping opacity-20"></div>
+                      <div className="absolute inset-0 rounded-full bg-blue-400 animate-ping opacity-20"></div>
                     )}
                     <span className="relative z-10">{step.number}</span>
                   </div>

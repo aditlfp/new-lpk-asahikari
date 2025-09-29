@@ -133,9 +133,9 @@ const HeroSection = () => {
   return (
     <section 
       id="home"
-      className="relative pt-[17%] h-screen overflow-hidden"
+      className="relative pt-[5%] md:pt-[17%] h-screen max-w-[100svw] overflow-hidden"
     >
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 ">
       <AnimatePresence mode="wait">
           <motion.div
             key={currentImageIndex}
@@ -200,12 +200,12 @@ const HeroSection = () => {
           {/* Judul dengan garis kiri & kanan */}
           <div className="flex items-center justify-center gap-1 xs:gap-2 sm:gap-4 md:gap-6">
             <motion.div 
-              className="flex-grow border-t border-gray-100 opacity-10 max-w-4 xs:max-w-8 sm:max-w-none"
+              className="flex-grow border-t border-gray-100 opacity-10 max-w-[40px] xs:max-w-8 sm:max-w-none"
               variants={lineVariants}
               style={{ originX: 1 }}
             ></motion.div>
             <motion.div 
-              className="flex flex-col text-2xl xs:text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl font-bold leading-tight"
+              className="flex flex-col text-7xl xs:text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl font-bold leading-tight"
               variants={titleVariants}
             >
               <motion.span variants={titleWordVariants}>Asa</motion.span>
@@ -213,7 +213,7 @@ const HeroSection = () => {
               <motion.span variants={titleWordVariants}>Mulya</motion.span>
             </motion.div>
             <motion.div 
-              className="flex-grow border-t border-gray-100 opacity-10 max-w-4 xs:max-w-8 sm:max-w-none"
+              className="flex-grow border-t border-gray-100 opacity-10 max-w-[40px] xs:max-w-8 sm:max-w-none"
               variants={lineVariants}
               style={{ originX: 0 }}
             ></motion.div>
@@ -221,7 +221,7 @@ const HeroSection = () => {
 
           {/* Sub-judul dengan kutipan */}
           <motion.p 
-            className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl mb-0 font-semibold italic px-3 sm:px-4 leading-tight"
+            className="text-sm xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl mb-0 font-semibold italic px-3 sm:px-4 md:px-10 leading-tight"
             variants={subtitleVariants}
           >
             "Kami siap memberikan bimbingan dan segala hal yang perlu Anda ketahui untuk mempersiapkan diri bekerja di Jepang"
@@ -229,7 +229,7 @@ const HeroSection = () => {
           
           {/* Paragraf deskripsi */}
           <motion.p 
-            className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl mt-2 sm:mt-4 max-w-xs xs:max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto leading-relaxed px-3 sm:px-4"
+            className="text-sm xs:text-sm sm:text-base md:text-lg lg:text-xl mt-2 sm:mt-4 max-w-xs xs:max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto leading-relaxed px-3 sm:px-4"
             variants={descriptionVariants}
           >
             Asa Hikari Mulya adalah pusat pelatihan bahasa Jepang terpercaya yang mempersiapkan Anda untuk bekerja di Jepang melalui program Specified Skilled Worker (SSW) dan Magang. Dapatkan pelatihan intensif, sertifikasi resmi, dan penempatan kerja dengan kurikulum berbasis kebutuhan pasar kerja Jepang.

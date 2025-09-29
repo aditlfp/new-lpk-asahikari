@@ -93,7 +93,7 @@ const AboutSection = () => {
   };
 
   return (
-    <section id="about" className="py-12 sm:py-16 md:py-20 bg-white">
+    <section id="about" className="py-12 sm:py-16 md:py-20 bg-white overflow-hidden">
       <div className="max-w-6xl mx-auto px-3 sm:px-4 md:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center">
           {/* Text Content */}
