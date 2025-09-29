@@ -1,7 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X, Twitter, Instagram, Youtube } from "lucide-react";
 import logo from "../assets/logo_dark.png";
-import { IoLogoFacebook, IoLogoInstagram, IoLogoTiktok, IoLogoYoutube } from "react-icons/io5";
+import logo_light from "../assets/logo_bg.png";
+import {
+  IoLogoFacebook,
+  IoLogoInstagram,
+  IoLogoTiktok,
+  IoLogoYoutube,
+} from "react-icons/io5";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -46,44 +52,47 @@ const Header = () => {
             : "-translate-y-full opacity-0 "
         }`}
       >
-        <div className="bg-blue-800 text-white py-2 px-4">
-          <div className="max-w-7xl mx-auto flex justify-end items-center">
-            <div className="flex items-center space-x-4">
-              <span className="text-sm hover:text-blue-950 transition-all ease-in-out duration-300">
+        <div className="bg-blue-800 text-white py-1 sm:py-2 px-2 sm:px-4">
+          <div className="max-w-7xl mx-auto flex justify-center sm:justify-end items-center">
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <span className="text-xs sm:text-sm hover:text-blue-950 transition-all ease-in-out duration-300 hidden xs:inline">
                 Follow us :
               </span>
-              <div className="flex space-x-2">
+              <span className="text-xs sm:text-sm hover:text-blue-950 transition-all ease-in-out duration-300 xs:hidden">
+                Follow :
+              </span>
+              <div className="flex space-x-1 sm:space-x-2">
                 <a
                   href="https://www.tiktok.com/@asahikarimulya.official?_t=ZS-8ymiuOWavwu&_r=1"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition-colors"
+                  className="bg-blue-600 text-white p-1 sm:p-2 rounded hover:bg-blue-700 shadow-md transition-colors"
                 >
-                  <IoLogoTiktok size={16} />
+                  <IoLogoTiktok size={14} className="sm:w-4 sm:h-4" />
                 </a>
                 <a
                   href="https://www.instagram.com/asahikarimulya.official?igsh=bzIwb3gzdXVjY2Iy"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition-colors"
+                  className="bg-blue-600 text-white p-1 sm:p-2 rounded hover:bg-blue-700 shadow-md transition-colors"
                 >
-                  <IoLogoInstagram size={16} />
+                  <IoLogoInstagram size={14} className="sm:w-4 sm:h-4" />
                 </a>
                 <a
                   href="https://www.facebook.com/profile.php?id=61550357071704"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition-colors"
+                  className="bg-blue-600 text-white p-1 sm:p-2 rounded hover:bg-blue-700 shadow-md transition-colors"
                 >
-                  <IoLogoFacebook size={16} />
+                  <IoLogoFacebook size={14} className="sm:w-4 sm:h-4" />
                 </a>
                 <a
                   href="https://www.youtube.com/@asahikarimulyaofficiall"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition-colors"
+                  className="bg-blue-600 text-white p-1 sm:p-2 rounded hover:bg-blue-700 shadow-md transition-colors"
                 >
-                  <IoLogoYoutube size={16} />
+                  <IoLogoYoutube size={14} className="sm:w-4 sm:h-4" />
                 </a>
               </div>
             </div>
@@ -92,33 +101,46 @@ const Header = () => {
       </div>
       {/* Main Navigation */}
       <nav
-        className={`bg-white transition-all duration-300 transform ${
-          !isScrolled ? "top-10" : "top-0 -translate-y-1"
+        className={`transition-all duration-300 transform ${
+          !isScrolled
+            ? "top-7 sm:top-10 bg-white"
+            : "-top-0 -translate-y-1 from-blue-900 to-blue-700 bg-gradient-to-br"
         } shadow-md fixed w-full z-50`}
       >
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex justify-between items-center h-20">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4">
+          <div className="flex justify-between items-center h-16 sm:h-20">
             {/* Logos */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               <img
-                src={logo}
+                src={!isScrolled ? logo_light : logo}
                 alt="Asahikarimulya Logo"
-                className="h-14 w-12 rounded-full"
+                className="w-8 sm:w-12"
               />
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-8">
+            <div className="hidden lg:flex items-center space-x-4 xl:space-x-8">
               {navItems.map((item, index) => (
                 <a
                   key={index}
                   href={item.href}
                   onClick={(e) => handleSmoothScroll(e, item.href)}
-                  className={`relative text-sm font-medium transition-colors hover:text-blue-600 cursor-pointer
-                  ${item.active ? "text-blue-600" : "text-gray-700"}
-                  before:absolute before:bottom-0 before:left-1/2 before:w-0 before:h-[2px] before:bg-blue-600
-                  before:transition-all before:duration-300 before:transform before:-translate-x-1/2
-                  hover:before:w-full`}
+                  className={`relative text-xs xl:text-sm font-medium cursor-pointer whitespace-nowrap
+                  ${
+                    item.active
+                      ? isScrolled
+                        ? "from-blue-500 to-blue-300 bg-gradient-to-br text-white rounded-full px-5 pt-1 pb-2 shadow-md"
+                        : "text-blue-600"
+                      : `before:absolute before:bottom-0 before:left-1/2 before:w-0 before:h-[2px] before:transition-all before:duration-300 before:transform before:-translate-x-1/2 hover:before:w-full transition-colors
+                      ${
+                        isScrolled
+                          ? "text-white hover:text-blue-200 before:bg-blue-50"
+                          : "text-gray-800 hover:text-blue-600 before:bg-blue-600"
+                      }`
+                  }
+
+
+                  `}
                 >
                   {item.label}
                 </a>
@@ -128,29 +150,51 @@ const Header = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 rounded-md text-gray-700 hover:text-blue-600"
+              className={`lg:hidden p-2 rounded-md
+                ${
+                  isScrolled
+                    ? "text-gray-100 hover:text-blue-400"
+                    : "text-gray-800 hover:text-blue-600"
+                }`}
             >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMenuOpen ? (
+                <X size={20} className="sm:w-6 sm:h-6" />
+              ) : (
+                <Menu size={20} className="sm:w-6 sm:h-6" />
+              )}
             </button>
           </div>
 
           {/* Mobile Navigation */}
-          {isMenuOpen && (
-            <div className="lg:hidden pb-4">
+          <div
+            className={`lg:hidden overflow-hidden transition-all duration-500 ease-in-out ${
+              isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+            }`}
+          >
+            <div className="pb-4">
               {navItems.map((item, index) => (
                 <a
                   key={index}
                   href={item.href}
                   onClick={(e) => handleSmoothScroll(e, item.href)}
-                  className={`block py-2 text-sm font-medium transition-colors hover:text-blue-600 cursor-pointer ${
-                    item.active ? "text-blue-600" : "text-gray-700"
+                  className={`block py-2 px-2 text-sm font-medium transition-colors hover:text-blue-600 cursor-pointer ${
+                    item.active
+                      ? isScrolled
+                        ? "from-blue-500 to-blue-300 bg-gradient-to-br text-white rounded-full px-5 pt-1 pb-2 shadow-md"
+                        : "text-blue-600"
+                      : `before:absolute before:bottom-0 before:left-1/2 before:w-0 before:h-[2px] before:transition-all before:duration-300 before:transform before:-translate-x-1/2 hover:before:w-full transition-colors
+              ${
+                isScrolled
+                  ? "text-white hover:text-blue-200 before:bg-blue-50"
+                  : "text-gray-800 hover:text-blue-600 before:bg-blue-600"
+              }`
                   }`}
                 >
                   {item.label}
                 </a>
               ))}
             </div>
-          )}
+          </div>
         </div>
       </nav>
     </div>

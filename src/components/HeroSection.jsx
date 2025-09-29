@@ -133,7 +133,7 @@ const HeroSection = () => {
   return (
     <section 
       id="home"
-      className="relative h-screen overflow-hidden"
+      className="relative pt-[17%] h-screen overflow-hidden"
     >
       <div className="absolute inset-0">
       <AnimatePresence mode="wait">
@@ -185,27 +185,27 @@ const HeroSection = () => {
       </div>
 
       {/* Side Banner */}
-      <div className="absolute hidden sm:block w-fit h-fit inset-0 top-1/2 -left-20 bg-blue-600 text-white p-1 px-2 -rotate-90 origin-right transform -translate-y-1/2 -translate-x-12 z-10">
-        <span className="text-sm font-medium whitespace-nowrap">ASA HIKARI MULYA 2025</span>
+      <div className="absolute hidden md:block w-fit h-fit inset-0 top-1/2 -left-16 lg:-left-20 bg-blue-600 text-white p-1 px-2 -rotate-90 origin-right transform -translate-y-1/2 -translate-x-8 lg:-translate-x-12 z-10">
+        <span className="text-xs lg:text-sm font-medium whitespace-nowrap">ASA HIKARI MULYA 2025</span>
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 h-full flex flex-col justify-center items-center text-center text-white px-4">
+      <div className="relative z-10 h-full flex flex-col justify-center items-center text-center text-white px-3 sm:px-6 md:px-8">
         <motion.div 
-          className="mx-auto space-y-8"
+          className="mx-auto space-y-3 xs:space-y-4 sm:space-y-6 md:space-y-8 max-w-full"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
           {/* Judul dengan garis kiri & kanan */}
-          <div className="flex items-center justify-center gap-6">
+          <div className="flex items-center justify-center gap-1 xs:gap-2 sm:gap-4 md:gap-6">
             <motion.div 
-              className="flex-grow border-t border-gray-100 opacity-10"
+              className="flex-grow border-t border-gray-100 opacity-10 max-w-4 xs:max-w-8 sm:max-w-none"
               variants={lineVariants}
               style={{ originX: 1 }}
             ></motion.div>
             <motion.div 
-              className="flex flex-col text-7xl md:text-8xl font-bold leading-tight"
+              className="flex flex-col text-2xl xs:text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl font-bold leading-tight"
               variants={titleVariants}
             >
               <motion.span variants={titleWordVariants}>Asa</motion.span>
@@ -213,7 +213,7 @@ const HeroSection = () => {
               <motion.span variants={titleWordVariants}>Mulya</motion.span>
             </motion.div>
             <motion.div 
-              className="flex-grow border-t border-gray-100 opacity-10"
+              className="flex-grow border-t border-gray-100 opacity-10 max-w-4 xs:max-w-8 sm:max-w-none"
               variants={lineVariants}
               style={{ originX: 0 }}
             ></motion.div>
@@ -221,7 +221,7 @@ const HeroSection = () => {
 
           {/* Sub-judul dengan kutipan */}
           <motion.p 
-            className="text-xl md:text-2xl mb-0 font-semibold italic px-4"
+            className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl mb-0 font-semibold italic px-3 sm:px-4 leading-tight"
             variants={subtitleVariants}
           >
             "Kami siap memberikan bimbingan dan segala hal yang perlu Anda ketahui untuk mempersiapkan diri bekerja di Jepang"
@@ -229,7 +229,7 @@ const HeroSection = () => {
           
           {/* Paragraf deskripsi */}
           <motion.p 
-            className="text-lg md:text-xl mt-4 max-w-3xl mx-auto leading-relaxed"
+            className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl mt-2 sm:mt-4 max-w-xs xs:max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto leading-relaxed px-3 sm:px-4"
             variants={descriptionVariants}
           >
             Asa Hikari Mulya adalah pusat pelatihan bahasa Jepang terpercaya yang mempersiapkan Anda untuk bekerja di Jepang melalui program Specified Skilled Worker (SSW) dan Magang. Dapatkan pelatihan intensif, sertifikasi resmi, dan penempatan kerja dengan kurikulum berbasis kebutuhan pasar kerja Jepang.
@@ -237,13 +237,15 @@ const HeroSection = () => {
 
           {/* BTN ON MOBILE */}
           <motion.div 
-            className='flex justify-center items-center pb-10'
+            className='flex justify-center items-center pb-6 sm:pb-10'
             variants={buttonVariants}
             onClick={() => {
               window.location.href = import.meta.env.VITE_URL_SIGNUP;
             }}
           >
-            <Button className="bg-blue-800 w-1/2 h-10 rounded-bl-2xl rounded-tr-2xl text-lg hover:bg-blue-700 hover:scale-110 transition-all ease-in-out duration-200 sm:hidden flex">Join Now <MessageCircle /> </Button>
+            <Button className="bg-blue-800 w-3/4 xs:w-2/3 sm:w-1/2 h-10 sm:h-12 rounded-bl-2xl rounded-tr-2xl text-sm xs:text-base sm:text-lg hover:bg-blue-700 hover:scale-110 transition-all ease-in-out duration-200 sm:hidden flex items-center gap-2">
+              Join Now <MessageCircle size={16} className="xs:w-5 xs:h-5" />
+            </Button>
           </motion.div>
         </motion.div>
       </div>
