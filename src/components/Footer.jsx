@@ -82,7 +82,7 @@ const Footer = () => {
                 <p className=" text-sm">
                   Pusat Pelatihan dan Pendidikan Bahasa Serta Budaya Jepang
                   <br />
-                  Jl. Betoro Katong, Nomor 22, Kelurahan Nologaten,
+                  Jl. Batoro Katong, Nomor 22, Kelurahan Nologaten,
                   <br />
                   Kecamatan Ponorogo, Kabupaten Ponorogo, Kode Pos 63411
                 </p>

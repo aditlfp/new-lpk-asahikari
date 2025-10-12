@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Mail, Phone, Send, CheckCircle2 } from "lucide-react";
+import {
+  MapPin,
+  Mail,
+  Phone,
+  Send,
+  CheckCircle2,
+  MessageCircle,
+} from "lucide-react";
+import { IoLogoWhatsapp } from "react-icons/io5";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -71,19 +79,20 @@ const ContactSection = () => {
     {
       icon: MapPin,
       title: "Alamat Kami",
-      content: "Jl. Pendidikan No. 123, Ponorogo, Jawa Timur 63411",
+      content:
+        "Jl. Batoro Katong, Nomor 22, Kelurahan Nologaten, Kecamatan Ponorogo, Kabupaten Ponorogo, Kode Pos 63411",
       link: null,
     },
     {
       icon: Mail,
       title: "Email",
-      content: "info@asahikarimulya.ac.id",
+      content: "asahikarimulya82@gmail.com",
       link: null,
     },
     {
       icon: Phone,
       title: "Telepon / WhatsApp",
-      content: "+62 812-3456-7890",
+      content: "+6281 395 554 334",
       link: null,
     },
   ];
@@ -204,6 +213,26 @@ const ContactSection = () => {
                 ))}
               </div>
             </div>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }} // Saat pertama kali muncul (tersembunyi)
+              animate={{ opacity: 1, y: 0 }} // Setelah muncul di layar
+              transition={{ duration: 0.2, ease: "easeOut" }} // Animasi halus
+              whileHover={{
+                scale: 1.02,
+                boxShadow: "0 10px 25px rgba(37, 99, 235, 0.25)", // bayangan biru lembut
+              }}
+              whileTap={{ scale: 0.95 }} // Efek klik
+              onClick={() => {
+                window.open(
+                  `https://wa.me/${waNumber}?text=Halo%20Admin%20Asa%20hikari%20Mulya.`,
+                  "_blank"
+                );
+              }}
+              className="flex items-center justify-center gap-x-2 text-blue-600/80 bg-white rounded-2xl p-4 sm:p-6 shadow-lg cursor-pointer select-none"
+            >
+              <IoLogoWhatsapp className="text-2xl text-green-500" />
+              <span className="text-blue-900 font-bold">Hubungi Kami</span>
+            </motion.div>
           </motion.div>
 
           {/* Registration Form */}

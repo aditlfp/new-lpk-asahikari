@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MessageCircleIcon } from "lucide-react";
+import { BadgeCheck, MessageCircleIcon } from "lucide-react";
 import Panjang from "../assets/images/img_panjang.jpg";
 import img_small1 from "../assets/images/bg1.jpg";
 import img_small2 from "../assets/images/bg4.jpg";
@@ -93,7 +93,10 @@ const AboutSection = () => {
   };
 
   return (
-    <section id="about" className="py-12 sm:py-16 md:py-20 bg-white overflow-hidden">
+    <section
+      id="about"
+      className="py-12 sm:py-16 md:py-20 bg-white overflow-hidden"
+    >
       <div className="max-w-6xl mx-auto px-3 sm:px-4 md:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center">
           {/* Text Content */}
@@ -111,16 +114,50 @@ const AboutSection = () => {
               About <span className="text-blue-600">ASA HIKARI MULYA</span>
             </motion.h2>
 
-            <motion.p
+            <motion.div
               className="text-sm xs:text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 leading-relaxed"
               variants={textVariants}
             >
-              Asa Hikari Mulya adalah pusat pelatihan bahasa Jepang terpercaya
-              yang mempersiapkan Anda untuk bekerja di Jepang melalui program
-              Specified Skilled Worker (SSW) dan Magang. Dapatkan pelatihan
-              intensif, sertifikasi resmi, dan penempatan kerja dengan kurikulum
-              berbasis kebutuhan pasar kerja Jepang.
-            </motion.p>
+              <p>
+                Misi Kami Menjadi Jembatan Karir Anda — menjadi jembatan bagi
+                para pencari kerja Indonesia untuk meraih impian berkarir di
+                Jepang dengan bekal kompetensi bahasa, skill, dan etos kerja
+                yang tinggi sesuai standar industri Jepang.
+              </p>
+
+              <ul className="space-y-3 mt-4 text-gray-700 text-sm sm:text-base">
+                <li className="flex items-start gap-3">
+                  <BadgeCheck className="text-blue-600 flex-shrink-0 mt-1" />
+                  <span>
+                    <span className="font-bold text-gray-900">
+                      Kurikulum Terstandar
+                    </span>{" "}
+                    – Pembelajaran bahasa Jepang setara JF-Test A2 dan skill
+                    SSW.
+                  </span>
+                </li>
+
+                <li className="flex items-start gap-3">
+                  <BadgeCheck className="text-blue-600 flex-shrink-0 mt-1" />
+                  <span>
+                    <span className="font-bold text-gray-900">
+                      Instruktur Berpengalaman
+                    </span>{" "}
+                    – Pengajar profesional dari praktisi dan ahli bahasa.
+                  </span>
+                </li>
+
+                <li className="flex items-start gap-3">
+                  <BadgeCheck className="text-blue-600 flex-shrink-0 mt-1" />
+                  <span>
+                    <span className="font-bold text-gray-900">
+                      Jaringan Perusahaan Luas
+                    </span>{" "}
+                    – Kesempatan wawancara langsung dengan perusahaan Jepang.
+                  </span>
+                </li>
+              </ul>
+            </motion.div>
 
             <div
               onClick={() => {

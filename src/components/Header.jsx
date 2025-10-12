@@ -9,17 +9,13 @@ import {
   IoLogoYoutube,
 } from "react-icons/io5";
 
-const Header = () => {
+const Header = ({ navigateTo, currentPage }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => {
-      // Adjusted threshold for earlier transition
-      setIsScrolled(window.scrollY > 50);
-    };
-    
-    // Throttled scroll handler for better performance
+    const onScroll = () => setIsScrolled(window.scrollY > 50);
+
     let ticking = false;
     const handleScroll = () => {
       if (!ticking) {
@@ -30,26 +26,48 @@ const Header = () => {
         ticking = true;
       }
     };
-    
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // 🧭 Ganti ini → jangan panggil navigateTo langsung
   const navItems = [
-    { label: "Home", href: "#home", active: true },
-    { label: "Sign In", href: import.meta.env.VITE_URL_SIGNUP },
+    { label: "Home", href: "home", active: currentPage == "home" },
+    { label: "Sign In", href: import.meta.env.VITE_URL_SIGNIN },
     { label: "Sign Up", href: import.meta.env.VITE_URL_SIGNUP },
-    { label: "Syarat Pendaftaran", href: import.meta.env.VITE_URL_SIGNUP },
+    {
+      label: "Syarat Pendaftaran",
+      href: "requirement",
+      active: currentPage == "requirement",
+    }, // jadi anchor
     { label: "Daftar Sekarang", href: import.meta.env.VITE_URL_SIGNUP },
   ];
 
+  // ✅ Versi aman dari handleSmoothScroll
   const handleSmoothScroll = (e, href) => {
-    e.preventDefault();
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+    if (!href) return;
+
+    // Kalau link dimulai dengan #
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const element = document.querySelector(href);
+
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      setIsMenuOpen(false);
+    } else if (href.startsWith("http")) {
+      // Kalau eksternal link, buka di tab baru
+      window.open(href, "_blank", "noopener,noreferrer");
+      setIsMenuOpen(false);
+    } else if (navigateTo && typeof navigateTo === "function") {
+      // Kalau internal route (pakai fungsi navigate)
+      e.preventDefault();
+      navigateTo(href);
+      setIsMenuOpen(false);
     }
-    setIsMenuOpen(false);
   };
 
   return (
@@ -57,9 +75,7 @@ const Header = () => {
       {/* Top Social Bar */}
       <div
         className={`w-full max-w-[100svw] fixed left-0 right-0 z-[9999] transition-all duration-300 ease-in-out transform backdrop-blur-sm ${
-          !isScrolled
-            ? "translate-y-0"
-            : ""
+          !isScrolled ? "translate-y-0" : "hidden"
         }`}
       >
         <div className="bg-blue-800 text-white py-1 sm:py-2 px-2 sm:px-4">
@@ -111,12 +127,12 @@ const Header = () => {
       </div>
       {/* Main Navigation */}
       <nav
-          className={`transition-all duration-300 ease-out max-w-[100svw] ${
-            !isScrolled
-              ? "translate-y-7 sm:translate-y-12 bg-white"
-              : "translate-y-0 from-blue-900 to-blue-700 bg-gradient-to-br"
-          } shadow-md fixed w-full z-[10000]`}
-        >
+        className={`transition-all duration-150 ease-out max-w-[100svw] ${
+          !isScrolled
+            ? "translate-y-7 sm:translate-y-12 bg-white"
+            : "translate-y-0 bg-gradient-to-br from-blue-900/90 to-blue-700/90 backdrop-blur-lg"
+        } shadow-md fixed w-full z-[10000]`}
+      >
         <div className="max-w-7xl mx-auto px-2 sm:px-4">
           <div className="flex justify-between items-center h-16 sm:h-20">
             {/* Logos */}
