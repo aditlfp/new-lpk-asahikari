@@ -11,6 +11,7 @@ import FacilitiesSection from "./FacilitiesSection";
 import GallerySection from "./GallerySection";
 import TestimonialSection from "./TestimonialSection";
 import Requirement from "./Requirement";
+import ClientSection from "./ClientSection";
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState("home");
@@ -37,6 +38,7 @@ const Home = () => {
           <>
             <HeroSection />
             <AboutSection />
+            <ClientSection />
             <ScheduleSection />
             <FacilitiesSection />
             <RegistrationSection />

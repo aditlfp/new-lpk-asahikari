@@ -5,7 +5,8 @@ import pengantaran_siswa2 from "../assets/images/Pengantaran2.jpeg";
 import persiapan from "../assets/images/Persiapan.jpeg";
 import pertemuan from "../assets/images/Pertemuan.jpeg";
 import pembekalan from "../assets/images/Pembekalan.jpeg";
-import pembekalan2 from "../assets/images/Pembekalan2.jpeg";
+import ippnu1 from "../assets/images/ippnu_ponorogo.jpeg";
+import ippnu2 from "../assets/images/ippnu_ponorogo2.jpeg";
 
 const galleryItems = [
   {
@@ -31,6 +32,14 @@ const galleryItems = [
   {
     img: pembekalan,
     title: "Persiapan Pembekalan Peserta Didik",
+  },
+  {
+    img: ippnu1,
+    title: "Kerjasama Dengan IPNU PONOROGO",
+  },
+  {
+    img: ippnu2,
+    title: "Kerjasama Dengan IPNU PONOROGO",
   },
 ];
 
