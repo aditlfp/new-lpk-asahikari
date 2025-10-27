@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MessageCircleIcon } from "lucide-react";
+import { BadgeCheck, MessageCircleIcon } from "lucide-react";
 import Panjang from "../assets/images/img_panjang.jpg";
 import img_small1 from "../assets/images/bg1.jpg";
 import img_small2 from "../assets/images/bg4.jpg";
@@ -93,7 +93,10 @@ const AboutSection = () => {
   };
 
   return (
-    <section id="about" className="py-12 sm:py-16 md:py-20 bg-white overflow-hidden">
+    <section
+      id="about"
+      className="py-12 sm:py-16 md:py-20 bg-white overflow-hidden"
+    >
       <div className="max-w-6xl mx-auto px-3 sm:px-4 md:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center">
           {/* Text Content */}
@@ -111,16 +114,96 @@ const AboutSection = () => {
               About <span className="text-blue-600">ASA HIKARI MULYA</span>
             </motion.h2>
 
-            <motion.p
-              className="text-sm xs:text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 leading-relaxed"
-              variants={textVariants}
-            >
-              Asa Hikari Mulya adalah pusat pelatihan bahasa Jepang terpercaya
-              yang mempersiapkan Anda untuk bekerja di Jepang melalui program
-              Specified Skilled Worker (SSW) dan Magang. Dapatkan pelatihan
-              intensif, sertifikasi resmi, dan penempatan kerja dengan kurikulum
-              berbasis kebutuhan pasar kerja Jepang.
-            </motion.p>
+            <motion.div className="text-sm xs:text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 leading-relaxed opacity-100 transform-none">
+              <motion.p variants={textVariants}>
+                Misi Kami Menjadi Jembatan Karir Anda — menjadi jembatan bagi
+                para pencari kerja Indonesia untuk meraih impian berkarir di
+                Jepang dengan bekal kompetensi bahasa, skill, dan etos kerja
+                yang tinggi sesuai standar industri Jepang.
+              </motion.p>
+
+              <motion.ul className="space-y-3 mt-4 text-gray-700 text-sm sm:text-base">
+                <motion.li
+                  variants={textVariants}
+                  className="flex items-start gap-3"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-badge-check-icon lucide-badge-check text-blue-600 flex-shrink-0 mt-1"
+                  >
+                    <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+                    <path d="m9 12 2 2 4-4" />
+                  </svg>
+                  <span>
+                    <strong className="text-gray-800">
+                      Kurikulum Terstandar
+                    </strong>{" "}
+                    – Pembelajaran bahasa Jepang setara JF-Test A2 dan skill
+                    SSW.
+                  </span>
+                </motion.li>
+                <motion.li
+                  variants={textVariants}
+                  className="flex items-start gap-3"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-badge-check-icon lucide-badge-check text-blue-600 flex-shrink-0 mt-1"
+                  >
+                    <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+                    <path d="m9 12 2 2 4-4" />
+                  </svg>
+                  <span>
+                    <strong className="text-gray-800">
+                      Instruktur Berpengalaman
+                    </strong>{" "}
+                    – Pengajar profesional dari praktisi dan ahli bahasa.
+                  </span>
+                </motion.li>
+                <motion.li
+                  variants={textVariants}
+                  className="flex items-start gap-3"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-badge-check-icon lucide-badge-check text-blue-600 flex-shrink-0 mt-1"
+                  >
+                    <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+                    <path d="m9 12 2 2 4-4" />
+                  </svg>
+                  <span>
+                    <strong className="text-gray-800">
+                      Jaringan Perusahaan Luas
+                    </strong>{" "}
+                    – Kesempatan wawancara langsung dengan perusahaan Jepang.
+                  </span>
+                </motion.li>
+              </motion.ul>
+            </motion.div>
 
             <div
               onClick={() => {

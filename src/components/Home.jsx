@@ -9,6 +9,9 @@ import RegistrationSection from "./RegistrationSection";
 import CallToActionSection from "./CallToActionSection";
 import Footer from "./Footer";
 import ContactSection from "./ContactSection";
+import ClientSection from "./ClientSection";
+import FacilitySection from "./FacilitySection";
+import GalerrySection from "./GalerrySection";
 
 const Home = () => {
   return (
@@ -16,8 +19,11 @@ const Home = () => {
       <Header />
       <HeroSection />
       <AboutSection />
+      <ClientSection />
       <ScheduleSection />
+      <FacilitySection />
       <RegistrationSection />
+      <GalerrySection />
       <CallToActionSection />
       <ContactSection />
       <Footer />
