@@ -1,4 +1,12 @@
 import { motion } from "framer-motion";
+import job_fair from '../assets/images/Job-D8iRyKfr.jpeg'
+import pengantaran from '../assets/images/Pengantaran-NlSIryoz.jpeg'
+import pengantaran2 from '../assets/images/Pengantaran2-DssrH4YK.jpeg'
+import persiapan from '../assets/images/Persiapan-DW4FX6Mo.jpeg'
+import pertemuan from '../assets/images/Pertemuan-DktZs0_r.jpeg'
+import pembekalan from '../assets/images/Pembekalan-D8Gdm3ki.jpeg'
+import iipnu from '../assets/images/ippnu_ponorogo-jYDu0dDv.jpeg'
+import iipnu2 from '../assets/images/ippnu_ponorogo2-DKbj7QrE.jpeg'
 
 const GallerySection = () => {
   // Animation variants for the section
@@ -100,35 +108,35 @@ const GallerySection = () => {
   // Gallery data
   const galleryItems = [
     {
-      src: "https://www.asahikarimulya.co.id/assets/Job-D8iRyKfr.jpeg",
+      src: job_fair,
       title: "Job Fair di PCC PONOROGO",
     },
     {
-      src: "https://www.asahikarimulya.co.id/assets/Pengantaran-NlSIryoz.jpeg",
+      src: pengantaran,
       title: "Pengantaran Peserta Didik ke Jepang",
     },
     {
-      src: "https://www.asahikarimulya.co.id/assets/Pengantaran2-DssrH4YK.jpeg",
+      src: pengantaran2,
       title: "Pengantaran Peserta Didik ke Jepang",
     },
     {
-      src: "https://www.asahikarimulya.co.id/assets/Persiapan-DW4FX6Mo.jpeg",
+      src: persiapan,
       title: "Pertemuan Dengan Pejabat Jepang",
     },
     {
-      src: "https://www.asahikarimulya.co.id/assets/Pertemuan-DktZs0_r.jpeg",
+      src: pertemuan,
       title: "Pertemuan dengan pejabat penting Jepang",
     },
     {
-      src: "https://www.asahikarimulya.co.id/assets/Pembekalan-D8Gdm3ki.jpeg",
+      src: pembekalan,
       title: "Persiapan Pembekalan Peserta Didik",
     },
     {
-      src: "https://www.asahikarimulya.co.id/assets/ippnu_ponorogo-jYDu0dDv.jpeg",
+      src: iipnu,
       title: "Kerjasama Dengan IPPNU PONOROGO",
     },
     {
-      src: "https://www.asahikarimulya.co.id/assets/ippnu_ponorogo2-DKbj7QrE.jpeg",
+      src: iipnu2,
       title: "Kerjasama Dengan IPNU PONOROGO",
     },
   ];

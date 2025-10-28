@@ -9,17 +9,15 @@ import {
   IoLogoYoutube,
 } from "react-icons/io5";
 
-const Header = () => {
+const Header = ({ navigateTo, currentPage }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
-      // Adjusted threshold for earlier transition
       setIsScrolled(window.scrollY > 50);
     };
 
-    // Throttled scroll handler for better performance
     let ticking = false;
     const handleScroll = () => {
       if (!ticking) {
@@ -36,10 +34,10 @@ const Header = () => {
   }, []);
 
   const navItems = [
-    { label: "Home", href: "#home", active: true },
-    { label: "Sign In", href: import.meta.env.VITE_URL_SIGNUP },
-    { label: "Sign Up", href: import.meta.env.VITE_URL_SIGNUP },
-    { label: "Syarat Pendaftaran", href: "/requirement" },
+    { label: "Home", href: "#home", page: "home", active: currentPage === "home" },
+    { label: "Sign In", page: "", href: import.meta.env.VITE_URL_SIGNUP },
+    { label: "Sign Up", page: "", href: import.meta.env.VITE_URL_SIGNUP },
+    { label: "Syarat Pendaftaran", page: "requirement", href: "requirement", active: currentPage === "requirement" },
     { label: "Daftar Sekarang", href: import.meta.env.VITE_URL_SIGNUP },
   ];
 
@@ -132,7 +130,11 @@ const Header = () => {
                 <a
                   key={index}
                   href={item.href}
-                  onClick={(e) => handleSmoothScroll(e, item.href)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (item.page) navigateTo(item.page);
+                    handleSmoothScroll(e, item.href);
+                  }}
                   className={`relative text-xs xl:text-sm font-medium cursor-pointer whitespace-nowrap
                   ${
                     item.active
@@ -184,7 +186,11 @@ const Header = () => {
                 <a
                   key={index}
                   href={item.href}
-                  onClick={(e) => handleSmoothScroll(e, item.href)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (item.page) navigateTo(item.page);
+                    handleSmoothScroll(e, item.href);
+                  }}
                   className={`block py-2 px-2 text-sm font-medium transition-colors hover:text-blue-300 cursor-pointer ${
                     item.active
                       ? isScrolled
