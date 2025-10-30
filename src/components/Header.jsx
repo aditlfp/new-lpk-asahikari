@@ -35,7 +35,7 @@ const Header = ({ navigateTo, currentPage }) => {
 
   const navItems = [
     { label: "Home", href: "#home", page: "home", active: currentPage === "home" },
-    { label: "Sign In", page: "", href: import.meta.env.VITE_URL_SIGIN },
+    { label: "Sign In", page: "", href: import.meta.env.VITE_URL_SIGNIN },
     { label: "Sign Up", page: "", href: import.meta.env.VITE_URL_SIGNUP },
     { label: "Syarat Pendaftaran", page: "requirement", href: "requirement", active: currentPage === "requirement" },
     { label: "Daftar Sekarang", href: import.meta.env.VITE_URL_SIGNUP },
