@@ -1,0 +1,43 @@
+name: 🚀 Build & Deploy React to JagoanHosting
+
+on:
+  workflow_dispatch: # Bisa dijalankan manual
+  push:
+    branches:
+      - main # Atau branch yang mau kamu pakai
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Install Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+
+      - name: Build React
+        run: npm run build
+        env:
+          VITE_URL_SIGN_UP: ${{ secrets.VITE_URL_SIGNUP }}
+          VITE_URL_SIGN_IN: ${{ secrets.VITE_URL_SIGIN }}
+
+      - name: Deploy To FTP SERVER ${{ secrets.FTP_HOST }}
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          protocol: ftp
+          port: 21
