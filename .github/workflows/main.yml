@@ -29,8 +29,8 @@ jobs:
       - name: Build React
         run: npm run build
         env:
-          VITE_URL_SIGN_UP: ${{ secrets.VITE_URL_SIGNUP }}
-          VITE_URL_SIGN_IN: ${{ secrets.VITE_URL_SIGIN }}
+          VITE_URL_SIGNUP: ${{ secrets.VITE_URL_SIGNUP }}
+          VITE_URL_SIGNIN: ${{ secrets.VITE_URL_SIGNIN }}
 
       - name: Deploy To FTP SERVER ${{ secrets.FTP_HOST }}
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
