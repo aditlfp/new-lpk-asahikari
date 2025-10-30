@@ -35,18 +35,27 @@ const Header = ({ navigateTo, currentPage }) => {
 
   const navItems = [
     { label: "Home", href: "#home", page: "home", active: currentPage === "home" },
-    { label: "Sign In", page: "", href: import.meta.env.VITE_URL_SIGNUP },
+    { label: "Sign In", page: "", href: import.meta.env.VITE_URL_SIGIN },
     { label: "Sign Up", page: "", href: import.meta.env.VITE_URL_SIGNUP },
     { label: "Syarat Pendaftaran", page: "requirement", href: "requirement", active: currentPage === "requirement" },
     { label: "Daftar Sekarang", href: import.meta.env.VITE_URL_SIGNUP },
   ];
 
   const handleSmoothScroll = (e, href) => {
+    
+    if (href.startsWith('http')) {
+      e.preventDefault();
+      window.open(href, '_blank', 'noopener,noreferrer');
+      return;
+    }
+
     e.preventDefault();
+
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
+
     setIsMenuOpen(false);
   };
 
