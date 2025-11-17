@@ -71,19 +71,19 @@ const ContactSection = () => {
     {
       icon: MapPin,
       title: "Alamat Kami",
-      content: "Jl. Pendidikan No. 123, Ponorogo, Jawa Timur 63411",
+      content: "Jl. Batoro Katong, Nomor 22, Kelurahan Nologaten, Kecamatan Ponorogo, Kabupaten Ponorogo, Kode Pos 63411",
       link: null,
     },
     {
       icon: Mail,
       title: "Email",
-      content: "info@asahikarimulya.ac.id",
+      content: "asahikarimulya82@gmail.com",
       link: null,
     },
     {
       icon: Phone,
       title: "Telepon / WhatsApp",
-      content: "+62 812-3456-7890",
+      content: "+6281 395 554 334",
       link: null,
     },
   ];
