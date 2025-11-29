@@ -68,7 +68,7 @@ export default function KegiatanCarousel() {
   const handleTouchEnd = () => setIsHoverPaused(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-50 py-8 sm:py-12 md:py-16 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-50 pt-4 pb-8 sm:pt-6 sm:pb-12 md:pt-8 md:pb-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Title */}
         <div className="text-center mb-6 sm:mb-8 md:mb-12">
@@ -76,9 +76,9 @@ export default function KegiatanCarousel() {
             Kegiatan
           </h1>
            <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto">
-			Berikut adalah dokumentasi berbagai kegiatan yang telah dilakukan oleh kami,
-			mulai dari aktivitas rutin hingga acara khusus. Silakan jelajahi semua momen terbaik kami.
-		  </p>
+      			Berikut adalah dokumentasi berbagai kegiatan yang telah dilakukan oleh kami,
+      			mulai dari aktivitas rutin hingga acara khusus. Silakan jelajahi semua momen terbaik kami.
+      		  </p>
         </div>
 
         {/* Auto-Scrolling Container */}

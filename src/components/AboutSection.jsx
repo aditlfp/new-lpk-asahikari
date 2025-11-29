@@ -223,91 +223,76 @@ const AboutSection = () => {
           </motion.div>
 
           {/* Images Layout */}
-          <div className="order-1 lg:order-2">
+          <div className="order-1 lg:order-2 w-full">
+            
             {/* Mobile Layout (Single Column) */}
-           <div className="block md:hidden space-y-4">
-              <div className="flex justify-center w-full gap-x-3">
-                <div className="hover:scale-105 transition-all ease-in-out duration-300">
-                  <motion.img
-                    src={Panjang}
-                    alt="Scout Activity 3"
-                    className="w-full max-w-[260px] max-h-[170px] object-contain rounded-md shadow-lg"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div className="hover:scale-105 transition-all ease-in-out duration-300">
-                  <motion.img
-                    src={img_small1}
-                    className="w-full max-w-[170px] max-h-[120px] object-cover rounded-md shadow-lg"
-                  />
-                </div>
-
-                <div className="hover:scale-105 transition-all ease-in-out duration-300">
-                  <motion.img
-                    src={img_small2}
-                    alt="Scout Activity 2"
-                    className="w-full max-w-[170px] max-h-[120px] object-cover rounded-lg rounded-br-[1.5rem] shadow-lg"
-                  />
-                </div>
-              </div>
-            </div>
-
-
-            {/* Tablet and Desktop Layout */}
-            <div className="hidden md:grid grid-cols-2 gap-4 lg:gap-6 p-2 sm:p-4">
-              {/* Kolom kiri: dua gambar kecil */}
-              <div className="flex flex-col space-y-4 lg:space-y-5">
-                <div className="hover:scale-110 transition-all ease-in-out duration-300">
-                  <motion.img
-                    src={img_small1}
-                    className="w-full object-cover rounded-lg shadow-lg"
-                    variants={smallImageTopVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{
-                      once: true,
-                      amount: 0.2,
-                      margin: "0px 0px -50px 0px",
-                    }}
-                  />
-                </div>
-                <div className="hover:scale-110 transition-all ease-in-out duration-300">
-                  <motion.img
-                    src={img_small2}
-                    alt="Scout Activity 2"
-                    className="w-full h-24 sm:h-28 md:h-32 lg:h-full object-cover rounded-lg shadow-lg"
-                    variants={smallImageBottomVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{
-                      once: true,
-                      amount: 0.2,
-                      margin: "0px 0px -50px 0px",
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* Kolom kanan: satu gambar besar */}
-              <div className="flex mt-16 justify-center items-start pt-2 sm:pt-4 ml-4 sm:ml-2 lg:ml-2 hover:scale-110 transition-all ease-in-out duration-300 w-full">
+            <div className="block md:hidden space-y-4">
+              {/* Big image */}
+              <div className="w-full flex justify-center">
                 <motion.img
                   src={Panjang}
                   alt="Scout Activity 3"
-                  className="w-full max-w-[200px] sm:max-w-xs md:max-w-sm lg:max-w-md h-64 sm:h-80 md:h-[40vh] lg:h-[50vh] object-cover rounded-xl shadow-lg rounded-br-[2rem] lg:rounded-br-[3rem]"
-                  variants={bigImageVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{
-                    once: true,
-                    amount: 0.2,
-                    margin: "0px 0px -80px 0px",
-                  }}
+                  className="w-full max-w-xs object-contain rounded-md shadow-md transition-transform duration-300 hover:scale-105"
+                />
+              </div>
+
+              {/* Two small images */}
+              <div className="grid grid-cols-2 gap-3">
+                <motion.img
+                  src={img_small1}
+                  className="w-full object-cover rounded-md shadow-md transition-transform duration-300 hover:scale-105"
+                />
+
+                <motion.img
+                  src={img_small2}
+                  alt="Scout Activity 2"
+                  className="w-full object-cover rounded-md shadow-md transition-transform duration-300 hover:scale-105"
                 />
               </div>
             </div>
+
+            {/* Tablet & Desktop Layout */}
+            <div className="hidden md:grid grid-cols-2 gap-4 lg:gap-6 p-3">
+              
+              {/* Left side — two stacked small images */}
+              <div className="flex flex-col space-y-4 lg:space-y-5">
+                <motion.img
+                  src={img_small1}
+                  className="w-full h-32 sm:h-40 md:h-48 lg:h-56 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110"
+                  variants={smallImageTopVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                />
+
+                <motion.img
+                  src={img_small2}
+                  alt="Scout Activity 2"
+                  className="w-full h-28 sm:h-36 md:h-44 lg:h-56 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110"
+                  variants={smallImageBottomVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                />
+              </div>
+
+              {/* Right side — large image */}
+              <div className="flex justify-center items-center w-full transition-transform duration-300 hover:scale-110">
+                <motion.img
+                  src={Panjang}
+                  alt="Scout Activity 3"
+                  className="w-full max-w-sm md:max-w-md lg:max-w-lg h-64 sm:h-80 md:h-[40vh] lg:h-[50vh] object-cover rounded-xl shadow-lg"
+                  variants={bigImageVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                />
+              </div>
+
+            </div>
+            
           </div>
+
         </div>
       </div>
     </section>
