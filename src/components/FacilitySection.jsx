@@ -228,24 +228,16 @@ const FacilitySection = () => {
               variants={iconVariants}
               whileHover="hover"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="40"
-                height="40"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-house-icon lucide-house text-blue-600"
-              >
-                <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
-                <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" 
+              width="40" height="40" 
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+              strokeWidth="2" strokeLinecap="round"
+              strokeLinejoin="round" 
+              className="lucide lucide-house-icon lucide-house text-blue-600">
+              <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
             </motion.div>
             <h3 className="text-lg font-bold text-blue-800 mb-2">
-              Asrama Peserta
+              Informasi Pekerjaan
             </h3>
             <p className="text-gray-600 text-sm">
               Akomodasi yang aman dan nyaman bagi peserta didik dari luar kota.

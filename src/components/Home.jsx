@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./Header";
 import HeroSection from "./HeroSection";
 import AboutSection from "./AboutSection";
@@ -11,6 +11,8 @@ import ClientSection from "./ClientSection";
 import FacilitySection from "./FacilitySection";
 import GalerrySection from "./GalerrySection";
 import Requirement from "./Requirement";
+import WorkInfo from "./WorkInfo";
+import KegiatanCaraousel from "./KegiatanCarousel"
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState("home");
@@ -22,6 +24,13 @@ const Home = () => {
   const navigateToHome = () => {
     setCurrentPage("home");
   };
+  
+  useEffect(() => {
+	  const container = document.getElementById("page-container");
+	  container?.scrollTo({ top: 0, behavior: "auto" });
+  }, [currentPage]);
+
+  
 
   const renderPage = () => {
     switch (currentPage) {
@@ -30,8 +39,9 @@ const Home = () => {
           <>
             <HeroSection />
             <AboutSection />
+            <KegiatanCaraousel />
             <ClientSection />
-            <ScheduleSection />
+            <ScheduleSection navigateTo={navigateTo}/>
             <FacilitySection />
             <RegistrationSection />
             <GalerrySection />
@@ -45,13 +55,20 @@ const Home = () => {
             <Requirement onBackClick={navigateToHome} />
           </>
         );
+      case "workinfo":
+        return (
+          <>
+            <WorkInfo onBackClick={navigateToHome}/>
+          </>
+        )
       default:
         return (
           <>
             <HeroSection />
             <AboutSection />
+            <KegiatanCaraousel />
             <ClientSection />
-            <ScheduleSection />
+            <ScheduleSection navigateTo={navigateTo}/>
             <FacilitySection />
             <RegistrationSection />
             <GalerrySection />
@@ -63,9 +80,9 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen max-w-[100svw] bg-white">
+    <div id="page-container" className="h-screen max-w-[100svw] bg-white overflow-y-auto">
       <Header navigateTo={navigateTo} currentPage={currentPage} />
-      <div className={currentPage == 'requirement' ? 'py-12' : 'py-0'}>
+      <div className={currentPage == 'requirement' || currentPage == 'workinfo' ? 'py-12' : 'py-0'}>
         {renderPage()}
       </div>
       <Footer />

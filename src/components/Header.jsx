@@ -14,8 +14,11 @@ const Header = ({ navigateTo, currentPage }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
+    const container = document.getElementById("page-container");
+    if (!container) return;
+
     const onScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(container.scrollTop > 50);
     };
 
     let ticking = false;
@@ -29,9 +32,10 @@ const Header = ({ navigateTo, currentPage }) => {
       }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    return () => container.removeEventListener("scroll", handleScroll);
   }, []);
+
 
   const navItems = [
     { label: "Home", href: "#home", page: "home", active: currentPage === "home" },
