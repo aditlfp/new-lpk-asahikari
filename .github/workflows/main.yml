@@ -31,16 +31,17 @@ jobs:
         env:
           VITE_URL_SIGNUP: ${{ secrets.VITE_URL_SIGNUP }}
           VITE_URL_SIGNIN: ${{ secrets.VITE_URL_SIGIN }}
-
-      - name: Deploy To FTP SERVER ${{ secrets.FTP_HOST }}
+      - name: Deploy To FTP SERVER
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
+          server: ${{ secrets.FTP_HOST }}   
+          username: ${{ secrets.FTP_USERNAME }} 
+          password: ${{ secrets.FTP_PASSWORD }} 
+          protocol: ftps                        
+          port: 21                             
           local-dir: ./dist/
-          protocol: ftps
-          port: 21
+          timeout: 600000                    
+
       - name: Discord notification
         if: always() # step ini tetap jalan meski gagal
         uses: Ilshidur/action-discord@master
