@@ -23,10 +23,22 @@ jobs:
     - name: Upload files to hosting
       run: |
         rsync -avz --delete \
+          -e "ssh -p ${{ secrets.SSH_PORT }}" \
           --exclude=".git*" \
           --exclude=".github" \
           ./ \
           ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/public_html
+    - name: Create .env.production on server
+      run: |
+        ssh -p ${{ secrets.SSH_PORT }} \
+        ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+          cd ~/public_html
+          cat > .env.production << 'EOL'
+              VITE_URL_SIGNUP=https://recruitment.savanait.com/auth/register.php
+              VITE_URL_SIGIN=https://recruitment.savanait.com/auth/login.php
+              EOL
+          chmod 644 .env.production
+        EOF
     - name: Run server commands
       run: |
         ssh -p ${{ secrets.SSH_PORT }} \
