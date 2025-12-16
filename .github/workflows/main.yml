@@ -20,12 +20,15 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
-    - name: Upload files to hosting
+    - name: Clean hosting folder
       run: |
-        rsync -avz --delete \
-          -e "ssh -p ${{ secrets.SSH_PORT }}" \
-          --exclude=".git*" \
-          --exclude=".github" \
+        ssh -p ${{ secrets.SSH_PORT }} \
+        ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+        "rm -rf ~/public_html/*"
+
+    - name: Upload files using SCP
+      run: |
+        scp -P ${{ secrets.SSH_PORT }} -r \
           ./ \
           ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/public_html
     - name: Create .env.production on server
