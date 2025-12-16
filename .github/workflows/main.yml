@@ -25,7 +25,10 @@ jobs:
       run: npm install
 
     # 4️⃣ Build Vite
-    - name: Build project
+    - name: Build project & setup .env.production
+      env:
+        VITE_URL_SIGNUP: ${{ secrets.VITE_URL_SIGNUP }}
+        VITE_URL_SIGIN: ${{ secrets.VITE_URL_SIGIN }}
       run: npm run build
 
     # 5️⃣ Setup SSH
@@ -49,19 +52,6 @@ jobs:
         scp -P ${{ secrets.SSH_PORT }} -r \
           dist/* \
           ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/public_html
-
-    # 8️⃣ Buat .env.production di server
-    - name: Create .env.production
-      run: |
-        ssh -p ${{ secrets.SSH_PORT }} \
-        ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-          cd ~/public_html
-          cat > .env.production << 'EOL'
-          VITE_URL_SIGNUP=https://recruitment.savanait.com/auth/register.php
-          VITE_URL_SIGIN=https://recruitment.savanait.com/auth/login.php
-          EOL
-              chmod 644 .env.production
-          EOF
 
     - name: Discord notification
       if: always() # step ini tetap jalan meski gagal
