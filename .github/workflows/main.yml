@@ -52,7 +52,86 @@ jobs:
         scp -P ${{ secrets.SSH_PORT }} -r \
           dist/* \
           ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/public_html
-
+    - name: 🚀 Discord Notification
+      if: always()
+      run: |
+        STATUS="${{ job.status }}"
+        WORKFLOW="${{ github.workflow }}"
+        ACTOR="${{ github.actor }}"
+        COMMIT_MSG=$(git log -1 --pretty=%B | head -n 1)
+        
+        # Status configuration
+        if [ "$STATUS" = "success" ]; then
+          COLOR=5763719  # Modern green
+          EMOJI="✨"
+          STATUS_TEXT="Deployment Successful"
+        elif [ "$STATUS" = "failure" ]; then
+          COLOR=15548997  # Modern red
+          EMOJI="💥"
+          STATUS_TEXT="Deployment Failed"
+        else
+          COLOR=16705372  # Modern orange
+          EMOJI="⏸️"
+          STATUS_TEXT="Deployment Cancelled"
+        fi
+        
+        # Build Discord embed
+        curl -H "Content-Type: application/json" \
+        -X POST \
+        -d "{
+          \"username\": \"CI/CD Pipeline\",
+          \"avatar_url\": \"https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png\",
+          \"embeds\": [{
+            \"author\": {
+              \"name\": \"$ACTOR\",
+              \"icon_url\": \"https://github.com/$ACTOR.png\"
+            },
+            \"title\": \"$EMOJI $STATUS_TEXT\",
+            \"description\": \"**$WORKFLOW** pipeline has completed\",
+            \"color\": $COLOR,
+            \"fields\": [
+              {
+                \"name\": \"📦 Repository\",
+                \"value\": \"[\`${{ github.repository }}\`](https://github.com/${{ github.repository }})\",
+                \"inline\": true
+              },
+              {
+                \"name\": \"🌿 Branch\",
+                \"value\": \"[\`${{ github.ref_name }}\`](https://github.com/${{ github.repository }}/tree/${{ github.ref_name }})\",
+                \"inline\": true
+              },
+              {
+                \"name\": \"📝 Commit Message\",
+                \"value\": \"$COMMIT_MSG\"
+              },
+              {
+                \"name\": \"🔗 Commit Hash\",
+                \"value\": \"[\`${GITHUB_SHA:0:7}\`](https://github.com/${{ github.repository }}/commit/${{ github.sha }})\",
+                \"inline\": true
+              },
+              {
+                \"name\": \"⏱️ Duration\",
+                \"value\": \"<t:${{ github.event.repository.pushed_at }}:R>\",
+                \"inline\": true
+              },
+              {
+                \"name\": \"📊 Status\",
+                \"value\": \"**${STATUS^^}**\",
+                \"inline\": false
+              }
+            ],
+            \"thumbnail\": {
+              \"url\": \"https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png\"
+            },
+            \"footer\": {
+              \"text\": \"GitHub Actions • Run #${{ github.run_number }}\",
+              \"icon_url\": \"https://github.githubassets.com/images/modules/site/features/actions-icon-actions.svg\"
+            },
+            \"timestamp\": \"$(date -u +%Y-%m-%dT%H:%M:%S.000Z)\"
+          }]
+        }" \
+        ${{ secrets.DISCORD_LOG_WEBHOOK }}
+    
     - name: Discord notification
       if: always() # step ini tetap jalan meski gagal
       uses: Ilshidur/action-discord@master
