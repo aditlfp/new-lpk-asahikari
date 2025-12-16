@@ -1,4 +1,4 @@
-name: Deploy to cPanel via SSH
+name: Build & Deploy Vite to cPanel
 
 on:
   push:
@@ -10,9 +10,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # 1️⃣ Ambil source code
     - name: Checkout code
       uses: actions/checkout@v4
 
+    # 2️⃣ Setup Node
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    # 3️⃣ Install dependency
+    - name: Install dependencies
+      run: npm install
+
+    # 4️⃣ Build Vite
+    - name: Build project
+      run: npm run build
+
+    # 5️⃣ Setup SSH
     - name: Setup SSH
       run: |
         mkdir -p ~/.ssh
@@ -20,36 +36,32 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
+    # 6️⃣ Bersihkan public_html
     - name: Clean hosting folder
       run: |
         ssh -p ${{ secrets.SSH_PORT }} \
         ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
         "rm -rf ~/public_html/*"
 
-    - name: Upload files using SCP
+    # 7️⃣ Upload hasil build SAJA (dist)
+    - name: Upload dist folder
       run: |
         scp -P ${{ secrets.SSH_PORT }} -r \
-          ./ \
+          dist/* \
           ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/public_html
-    - name: Create .env.production on server
+
+    # 8️⃣ Buat .env.production di server
+    - name: Create .env.production
       run: |
         ssh -p ${{ secrets.SSH_PORT }} \
         ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
           cd ~/public_html
           cat > .env.production << 'EOL'
-              VITE_URL_SIGNUP=https://recruitment.savanait.com/auth/register.php
-              VITE_URL_SIGIN=https://recruitment.savanait.com/auth/login.php
-              EOL
-          chmod 644 .env.production
-        EOF
-    - name: Run server commands
-      run: |
-        ssh -p ${{ secrets.SSH_PORT }} \
-        ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-          cd ~/public_html
-          npm install
-          npm run build
-        EOF
+          VITE_URL_SIGNUP=https://recruitment.savanait.com/auth/register.php
+          VITE_URL_SIGIN=https://recruitment.savanait.com/auth/login.php
+          EOL
+              chmod 644 .env.production
+          EOF
 
     - name: Discord notification
       if: always() # step ini tetap jalan meski gagal
