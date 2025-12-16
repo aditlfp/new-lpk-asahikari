@@ -2,146 +2,146 @@ name: Build & Deploy Vite to cPanel
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
-  deploy:
+  # =========================
+  # 1️⃣ BUILD JOB
+  # =========================
+  build:
+    name: Build Vite
     runs-on: ubuntu-latest
 
     steps:
-    # 1️⃣ Ambil source code
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    # 2️⃣ Setup Node
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 18
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
 
-    # 3️⃣ Install dependency
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    # 4️⃣ Build Vite
-    - name: Build project & setup .env.production
-      env:
-        VITE_URL_SIGNUP: ${{ secrets.VITE_URL_SIGNUP }}
-        VITE_URL_SIGIN: ${{ secrets.VITE_URL_SIGIN }}
-      run: npm run build
+      - name: Build project
+        env:
+          VITE_URL_SIGNUP: ${{ secrets.VITE_URL_SIGNUP }}
+          VITE_URL_SIGIN: ${{ secrets.VITE_URL_SIGIN }}
+        run: npm run build
 
-    # 5️⃣ Setup SSH
-    - name: Setup SSH
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
 
-    # 6️⃣ Bersihkan public_html
-    - name: Clean hosting folder
-      run: |
-        ssh -p ${{ secrets.SSH_PORT }} \
-        ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-        "rm -rf ~/public_html/*"
+  # =========================
+  # 2️⃣ DEPLOY JOB
+  # =========================
+  deploy:
+    name: Deploy to cPanel
+    runs-on: ubuntu-latest
+    needs: build
 
-    # 7️⃣ Upload hasil build SAJA (dist)
-    - name: Upload dist folder
-      run: |
-        scp -P ${{ secrets.SSH_PORT }} -r \
+    steps:
+      - name: Download dist artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Clean hosting folder
+        run: |
+          ssh -p ${{ secrets.SSH_PORT }} \
+          ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+          "rm -rf ~/public_html/*"
+
+      - name: Upload dist folder
+        run: |
+          scp -P ${{ secrets.SSH_PORT }} -r \
           dist/* \
           ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/public_html
-    - name: 🚀 Discord Notification
-      if: always()
-      run: |
-        STATUS="${{ job.status }}"
-        WORKFLOW="${{ github.workflow }}"
-        ACTOR="${{ github.actor }}"
-        COMMIT_MSG=$(git log -1 --pretty=%B | head -n 1)
-        
-        # Status configuration
-        if [ "$STATUS" = "success" ]; then
-          COLOR=5763719  # Modern green
-          EMOJI="✨"
-          STATUS_TEXT="Deployment Successful"
-        elif [ "$STATUS" = "failure" ]; then
-          COLOR=15548997  # Modern red
-          EMOJI="💥"
-          STATUS_TEXT="Deployment Failed"
-        else
-          COLOR=16705372  # Modern orange
-          EMOJI="⏸️"
-          STATUS_TEXT="Deployment Cancelled"
-        fi
-        
-        # Build Discord embed
-        curl -H "Content-Type: application/json" \
-        -X POST \
-        -d "{
-          \"username\": \"CI/CD Pipeline\",
-          \"avatar_url\": \"https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png\",
-          \"embeds\": [{
-            \"author\": {
-              \"name\": \"$ACTOR\",
-              \"icon_url\": \"https://github.com/$ACTOR.png\"
-            },
-            \"title\": \"$EMOJI $STATUS_TEXT\",
-            \"description\": \"**$WORKFLOW** pipeline has completed\",
-            \"color\": $COLOR,
-            \"fields\": [
-              {
-                \"name\": \"📦 Repository\",
-                \"value\": \"[\`${{ github.repository }}\`](https://github.com/${{ github.repository }})\",
-                \"inline\": true
-              },
-              {
-                \"name\": \"🌿 Branch\",
-                \"value\": \"[\`${{ github.ref_name }}\`](https://github.com/${{ github.repository }}/tree/${{ github.ref_name }})\",
-                \"inline\": true
-              },
-              {
-                \"name\": \"📝 Commit Message\",
-                \"value\": \"$COMMIT_MSG\"
-              },
-              {
-                \"name\": \"🔗 Commit Hash\",
-                \"value\": \"[\`${GITHUB_SHA:0:7}\`](https://github.com/${{ github.repository }}/commit/${{ github.sha }})\",
-                \"inline\": true
-              },
-              {
-                \"name\": \"⏱️ Duration\",
-                \"value\": \"<t:${{ github.event.repository.pushed_at }}:R>\",
-                \"inline\": true
-              },
-              {
-                \"name\": \"📊 Status\",
-                \"value\": \"**${STATUS^^}**\",
-                \"inline\": false
+
+  # =========================
+  # 3️⃣ DISCORD NOTIFICATION JOB
+  # =========================
+  notify:
+    name: Discord Notification
+    runs-on: ubuntu-latest
+    needs: [build, deploy]
+    if: always()
+
+    steps:
+      - name: Discord Logging (Embed)
+        run: |
+          BUILD_STATUS="${{ needs.build.result }}"
+          DEPLOY_STATUS="${{ needs.deploy.result }}"
+
+          if [[ "$DEPLOY_STATUS" == "success" ]]; then
+            COLOR=5763719
+            EMOJI="🚀"
+            TITLE="Deployment Successful"
+          elif [[ "$DEPLOY_STATUS" == "failure" ]]; then
+            COLOR=15548997
+            EMOJI="💥"
+            TITLE="Deployment Failed"
+          else
+            COLOR=16705372
+            EMOJI="⏸️"
+            TITLE="Deployment Cancelled"
+          fi
+
+          curl -H "Content-Type: application/json" \
+          -X POST \
+          -d "{
+            \"username\": \"CI/CD Logger\",
+            \"avatar_url\": \"https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png\",
+            \"embeds\": [{
+              \"title\": \"$EMOJI $TITLE\",
+              \"color\": $COLOR,
+              \"fields\": [
+                {
+                  \"name\": \"🛠 Build Job\",
+                  \"value\": \"**$BUILD_STATUS**\",
+                  \"inline\": true
+                },
+                {
+                  \"name\": \"🚀 Deploy Job\",
+                  \"value\": \"**$DEPLOY_STATUS**\",
+                  \"inline\": true
+                },
+                {
+                  \"name\": \"🌿 Branch\",
+                  \"value\": \"${{ github.ref_name }}\",
+                  \"inline\": true
+                },
+                {
+                  \"name\": \"🔗 Commit\",
+                  \"value\": \"[${GITHUB_SHA:0:7}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})\"
+                }
+              ],
+              \"footer\": {
+                \"text\": \"GitHub Actions • Run #${{ github.run_number }}\"
               }
-            ],
-            \"thumbnail\": {
-              \"url\": \"https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png\"
-            },
-            \"footer\": {
-              \"text\": \"GitHub Actions • Run #${{ github.run_number }}\",
-              \"icon_url\": \"https://github.githubassets.com/images/modules/site/features/actions-icon-actions.svg\"
-            },
-            \"timestamp\": \"$(date -u +%Y-%m-%dT%H:%M:%S.000Z)\"
-          }]
-        }" \
-        ${{ secrets.DISCORD_LOG_WEBHOOK }}
-    
-    - name: Discord notification
-      if: always() # step ini tetap jalan meski gagal
-      uses: Ilshidur/action-discord@master
-      env:
-        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        DISCORD_USERNAME: "GitHub Actions Bot"
-        DISCORD_AVATAR: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-      with:
+            }]
+          }" \
+          ${{ secrets.DISCORD_LOG_WEBHOOK }}
+
+      - name: Discord Public Notification
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
           args: |
-            🚀 **CI/CD SSH status untuk ${{ github.repository }}**
+            🚀 **Deploy ${{ github.repository }}**
+            Build: **${{ needs.build.result }}**
+            Deploy: **${{ needs.deploy.result }}**
             Branch: `${{ github.ref_name }}`
-            Commit: [${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
-            Status: **${{ job.status }}**
