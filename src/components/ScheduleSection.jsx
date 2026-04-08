@@ -4,7 +4,7 @@ import { Calendar, Star, Award, ArrowRight } from "lucide-react";
 import basic_n4 from "../assets/images/basic_n4.jpg";
 import basic_n5 from "../assets/images/basic_n5.jpg";
 
-const ScheduleSection = () => {
+const ScheduleSection = ({ navigateTo }) => {
   const scheduleItems = [
     {
       date: "01",
@@ -271,14 +271,12 @@ const ScheduleSection = () => {
           viewport={{ once: true, amount: 0.5, margin: "0px 0px -50px 0px" }}
         >
           <button
-            onClick={() => {
-              window.location.href = import.meta.env.VITE_URL_SIGNUP;
-            }}
+            onClick={() => navigateTo('workinfo')}
             className="group relative bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2 px-3 sm:px-8 rounded-tr-2xl rounded-bl-2xl shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-600/40 transition-all duration-300 inline-flex items-center gap-2 hover:scale-105 overflow-hidden"
           >
             <span className="absolute inset-0 bg-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
             <span className="relative text-sm sm:text-base">
-              Lihat Selengkapnya
+              Lihat Lowongan Pekerjaan
             </span>
             <svg
               xmlns="http://www.w3.org/2000/svg"

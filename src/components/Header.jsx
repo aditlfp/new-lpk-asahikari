@@ -14,8 +14,12 @@ const Header = ({ navigateTo, currentPage }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 50);
+    const onScroll = () => {
+      // Adjusted threshold for earlier transition
+      setIsScrolled(window.scrollY > 50);
+    };
 
+    // Throttled scroll handler for better performance
     let ticking = false;
     const handleScroll = () => {
       if (!ticking) {
@@ -75,7 +79,7 @@ const Header = ({ navigateTo, currentPage }) => {
       {/* Top Social Bar */}
       <div
         className={`w-full max-w-[100svw] fixed left-0 right-0 z-[9999] transition-all duration-300 ease-in-out transform backdrop-blur-sm ${
-          !isScrolled ? "translate-y-0" : "hidden"
+          !isScrolled ? "translate-y-0" : ""
         }`}
       >
         <div className="bg-blue-800 text-white py-1 sm:py-2 px-2 sm:px-4">
@@ -127,10 +131,10 @@ const Header = ({ navigateTo, currentPage }) => {
       </div>
       {/* Main Navigation */}
       <nav
-        className={`transition-all duration-150 ease-out max-w-[100svw] ${
+        className={`transition-all duration-300 ease-out max-w-[100svw] ${
           !isScrolled
             ? "translate-y-7 sm:translate-y-12 bg-white"
-            : "translate-y-0 bg-gradient-to-br from-blue-900/90 to-blue-700/90 backdrop-blur-lg"
+            : "translate-y-0 from-blue-900 to-blue-700 bg-gradient-to-br"
         } shadow-md fixed w-full z-[10000]`}
       >
         <div className="max-w-7xl mx-auto px-2 sm:px-4">
@@ -150,7 +154,11 @@ const Header = ({ navigateTo, currentPage }) => {
                 <a
                   key={index}
                   href={item.href}
-                  onClick={(e) => handleSmoothScroll(e, item.href)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (item.page) navigateTo(item.page);
+                    handleSmoothScroll(e, item.href);
+                  }}
                   className={`relative text-xs xl:text-sm font-medium cursor-pointer whitespace-nowrap
                   ${
                     item.active
@@ -202,7 +210,11 @@ const Header = ({ navigateTo, currentPage }) => {
                 <a
                   key={index}
                   href={item.href}
-                  onClick={(e) => handleSmoothScroll(e, item.href)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (item.page) navigateTo(item.page);
+                    handleSmoothScroll(e, item.href);
+                  }}
                   className={`block py-2 px-2 text-sm font-medium transition-colors hover:text-blue-300 cursor-pointer ${
                     item.active
                       ? isScrolled

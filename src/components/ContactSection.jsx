@@ -53,7 +53,7 @@ const ContactSection = () => {
       ].join("\n");
 
       const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(
-        waMessage
+        waMessage,
       )}`;
 
       // Open link in new tab
@@ -225,7 +225,7 @@ const ContactSection = () => {
               onClick={() => {
                 window.open(
                   `https://wa.me/${waNumber}?text=Halo%20Admin%20Asa%20hikari%20Mulya.`,
-                  "_blank"
+                  "_blank",
                 );
               }}
               className="flex items-center justify-center gap-x-2 text-blue-600/80 bg-white rounded-2xl p-4 sm:p-6 shadow-lg cursor-pointer select-none"

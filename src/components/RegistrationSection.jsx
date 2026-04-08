@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import image_formal1 from "../assets/foto_diri_formal_689c4047bec90.jpg";
-import image_formal2 from "../assets/foto_diri_formal_689c7d80ab3b0.jpg";
 import image_formal3 from "../assets/foto_diri_formal_68b1114c78dbf.jpg";
 import image_formal4 from "../assets/foto_diri_formal_68be5d7aa8d2b.jpeg";
+import placeholder from '../assets/images/placeholder.png'
 
 const RegistrationSection = () => {
   // Initialize with 0 instead of -1
@@ -25,7 +25,7 @@ const RegistrationSection = () => {
       title: "Marketing",
       subtitle: "Gangsar",
       description: 'Visi: "Menambah relasi dan pengalaman"',
-      image: image_formal2,
+      image: placeholder,
     },
     {
       id: 3,

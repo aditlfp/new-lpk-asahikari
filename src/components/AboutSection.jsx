@@ -180,51 +180,27 @@ const AboutSection = () => {
           <div className="order-1 lg:order-2">
             {/* Mobile Layout (Single Column) */}
             <div className="block md:hidden space-y-4">
-              <div className="hover:scale-105 transition-all ease-in-out duration-300">
+              {/* Big image */}
+              <div className="w-full flex justify-center">
                 <motion.img
                   src={Panjang}
                   alt="Scout Activity 3"
-                  className="w-full h-48 xs:h-56 sm:h-64 object-cover rounded-xl shadow-lg rounded-br-[2rem]"
-                  variants={bigImageVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{
-                    once: true,
-                    amount: 0.2,
-                    margin: "0px 0px -80px 0px",
-                  }}
+                  className="w-full max-w-xs object-contain rounded-md shadow-md transition-transform duration-300 hover:scale-105"
                 />
               </div>
+
+              {/* Two small images */}
               <div className="grid grid-cols-2 gap-3">
-                <div className="hover:scale-105 transition-all ease-in-out duration-300">
-                  <motion.img
-                    src={img_small1}
-                    className="w-full h-24 xs:h-28 sm:h-32 object-cover rounded-lg rounded-tl-[1.5rem] shadow-lg"
-                    variants={smallImageTopVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{
-                      once: true,
-                      amount: 0.2,
-                      margin: "0px 0px -50px 0px",
-                    }}
-                  />
-                </div>
-                <div className="hover:scale-105 transition-all ease-in-out duration-300">
-                  <motion.img
-                    src={img_small2}
-                    alt="Scout Activity 2"
-                    className="w-full h-24 xs:h-28 sm:h-32 object-cover rounded-lg rounded-br-[1.5rem] shadow-lg"
-                    variants={smallImageBottomVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{
-                      once: true,
-                      amount: 0.2,
-                      margin: "0px 0px -50px 0px",
-                    }}
-                  />
-                </div>
+                <motion.img
+                  src={img_small1}
+                  className="w-full object-cover rounded-md shadow-md transition-transform duration-300 hover:scale-105"
+                />
+
+                <motion.img
+                  src={img_small2}
+                  alt="Scout Activity 2"
+                  className="w-full object-cover rounded-md shadow-md transition-transform duration-300 hover:scale-105"
+                />
               </div>
             </div>
 
@@ -263,20 +239,16 @@ const AboutSection = () => {
                 </div>
               </div>
 
-              {/* Kolom kanan: satu gambar besar */}
-              <div className="flex justify-center items-start pt-2 sm:pt-4 ml-4 sm:ml-2 lg:ml-2 hover:scale-110 transition-all ease-in-out duration-300 w-full">
+              {/* Right side — large image */}
+              <div className="flex justify-center items-center w-full transition-transform duration-300 hover:scale-110">
                 <motion.img
                   src={Panjang}
                   alt="Scout Activity 3"
-                  className="w-full max-w-[200px] sm:max-w-xs md:max-w-sm lg:max-w-md h-64 sm:h-80 md:h-[40vh] lg:h-[50vh] object-cover rounded-xl shadow-lg rounded-br-[2rem] lg:rounded-br-[3rem]"
+                  className="w-full max-w-sm md:max-w-md lg:max-w-lg h-64 sm:h-80 md:h-[40vh] lg:h-[50vh] object-cover rounded-xl shadow-lg"
                   variants={bigImageVariants}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{
-                    once: true,
-                    amount: 0.2,
-                    margin: "0px 0px -80px 0px",
-                  }}
+                  viewport={{ once: true }}
                 />
               </div>
             </div>

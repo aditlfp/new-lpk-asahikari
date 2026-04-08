@@ -8,6 +8,11 @@
     color: red;
 }
 
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
 @media (prefers-reduced-motion: no-preference) {
     .App-logo {
         animation: App-logo-spin infinite 20s linear;
@@ -84,4 +89,25 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #151780;
+}
+
+@keyframes wiggle {
+    0%,
+    100% {
+    transform: rotate(0deg);
+    }
+    25% {
+    transform: rotate(5deg);
+    }
+    50% {
+    transform: rotate(-5deg);
+    }
+    75% {
+    transform: rotate(5deg);
+    }
+}
+
+/* Update animation to run 3 times */
+.group:hover .group-hover\\:animate-wiggle {
+    animation: wiggle 0.5s ease-in-out 1;
 }
