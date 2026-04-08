@@ -12,6 +12,7 @@ import GallerySection from "./GallerySection";
 import TestimonialSection from "./TestimonialSection";
 import Requirement from "./Requirement";
 import ClientSection from "./ClientSection";
+import WorkInfo from "./WorkInfo";
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState("home");
@@ -39,7 +40,7 @@ const Home = () => {
             <HeroSection />
             <AboutSection />
             <ClientSection />
-            <ScheduleSection />
+            <ScheduleSection navigateTo={navigateTo} />
             <FacilitiesSection />
             <RegistrationSection />
             <GallerySection />
@@ -52,13 +53,16 @@ const Home = () => {
       case "requirement":
         return <Requirement onBackClick={navigateToHome} />;
 
+      case "workinfo":
+        return <WorkInfo onBackClick={navigateToHome} />;
+
       default:
         return (
           <>
             <HeroSection />
             <AboutSection />
             <ClientSection />
-            <ScheduleSection />
+            <ScheduleSection navigateTo={navigateTo} />
             <FacilitiesSection />
             <RegistrationSection />
             <GallerySection />
