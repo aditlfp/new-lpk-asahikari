@@ -48,8 +48,24 @@ const Home = () => {
             <ContactSection />
           </>
         );
+
       case "requirement":
         return <Requirement onBackClick={navigateToHome} />;
+
+      default:
+        return (
+          <>
+            <HeroSection />
+            <AboutSection />
+            <ClientSection />
+            <ScheduleSection />
+            <FacilitiesSection />
+            <RegistrationSection />
+            <GallerySection />
+            <CallToActionSection />
+            <ContactSection />
+          </>
+        );
     }
   };
 
